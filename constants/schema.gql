@@ -1,0 +1,26 @@
+type Assistant {
+    enabled: Boolean
+    header: String!
+    body: String
+    # link to single q-a source
+    questionsAnswers: QaSource
+}
+
+type QaSource {
+    id: String!
+    items: [QuestionAnswer]
+}
+
+type QuestionAnswer {
+    id: String!,
+    question: String!,
+    answer: String!,
+    cta: Cta
+}
+
+type Cta {
+    label: String!,
+    href: String!,
+    ariaLabel: String,
+    openNewTab: Boolean
+}
