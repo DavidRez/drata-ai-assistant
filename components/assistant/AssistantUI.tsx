@@ -4,6 +4,7 @@ import { AssistantConfig, AssistantMessages, AssistantQA } from "@/types/assista
 import { setMessages } from "@/utils/messages"
 import { AssistantChatWindow } from "./AssitantChatWindow"
 import { AssistantInput } from "./AssistantInput"
+import { Button } from "../ui/Button"
 import Link from "next/link"
 
 type Props = {
@@ -23,6 +24,15 @@ export function AssistantUI({ config }: Props) {
   const [questionAnswer, setQuestionAnswer] = useState<AssistantQA | null>(null) // The question and answer that the user clicked on
   const [addCta, setAddCta] = useState(false); // Whether to show the CTA
   const questionClickedRef = useRef<boolean>(false)
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+
+  // Cancel reply if user restarts the conversation
+  const cancelTimeout = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
+      timeoutRef.current = null
+    }
+  }
 
   useEffect(() => {
     questionClickedRef.current = !questionAnswer
@@ -30,10 +40,18 @@ export function AssistantUI({ config }: Props) {
 
   return (
     <section className="bg-white shadow-xs" role="region" aria-label="Chat assistant">
-      <div className="flex flex-col gap-2 mb-4 bg-(--drata-blue) text-white p-4">
+      <div className="flex flex-col items-start justify-between sm:flex-row sm:items-center flex-col gap-4 mb-4 bg-(--drata-blue) text-white p-4">
         <h2 className="text-xl font-semibold">
           {config.header}
         </h2>
+        <Button onClick={() => {
+          setMessagesState(initialMessages)
+          setQuestionAnswer(null)
+          setAddCta(false)
+          cancelTimeout()
+        }}
+        label="New Conversation"
+        />
       </div>
 
       {/* Chat window */}
@@ -49,12 +67,12 @@ export function AssistantUI({ config }: Props) {
                   className="transition-all duration-300 w-fit max-w-md px-4 py-2 ml-8 border rounded-full text-gray-600 cursor-pointer hover:bg-gray-100"
                   onClick={() => {
                     setMessagesState(setMessages({ role: "user", content: qa.question }, messages))
-                    setTimeout(() => {
+                    timeoutRef.current = setTimeout(() => {
                       setMessagesState((currentMessages) => 
                         setMessages({ role: "assistant", content: qa.answer || "" }, currentMessages)
                       )
                       setAddCta(true)
-                    }, 2000)
+                    }, 1000)
                     setQuestionAnswer(qa)
                   }}
                 >
