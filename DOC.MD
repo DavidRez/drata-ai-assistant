@@ -41,7 +41,6 @@
 ### Server-side Data Caching
 
 - Cache CMS and knowledge source response using SSG. This is ideal since the data (q/a) won't be updated often
-  - Use `fetch` and set revalidation
 - **Redis**
   - Allows for sharing of same cache across multiple instances like in AWS
 
