@@ -48,11 +48,11 @@
 ### AI Response Caching
 
 - Reduce repeated LLM calls with cached responses
-- **Semantic caching** – return cached output if query is identical or sufficiently similar
+- **Semantic caching** – return cached output if query is sufficiently similar
   - Example: Redis or vector database
-  - Options for caching user queries:
-    1. **Hashing (exact-match caching)** – normalize query, hash it, store response. Fast, cheap, exact-match only.
-    2. **Embeddings / vector caching (similarity-match caching)** – convert query to vector embedding, store in Redis/vector DB, compare new query to cached embeddings, return cached response if similarity above threshold.
+- Options for caching user queries:
+  1. **Hashing (exact-match caching)** – normalize query, hash it, store response. Fast, cheap, exact-match only.
+  2. **Embeddings / vector caching (similarity-match caching)** – convert query to vector embedding, store in Redis/vector DB, compare new query to cached embeddings, return cached response if similarity above threshold.
 
 ## 3. Marketing / Design Collaboration
 
