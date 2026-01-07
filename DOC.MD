@@ -27,8 +27,8 @@
 #### Next.js SSG with ISR
 
 - **SSG** - ideal since the data (q/a) won't be updated often
-  - Use `fetch` and set revalidation
 - **ISR** - target and update specific pages without a full rebuild
+  - Use `fetch` and set revalidation
 
 ### Vercel
 
