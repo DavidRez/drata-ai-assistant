@@ -2,9 +2,9 @@
 
 ## 1. Architecture / SEO / Accessibility
 
-### Static Site Generation (SSG) with Revalidation
+### Static Site Generation (SSG)
 
-- Use SSG with revalidation for the assistant content so Q/A and CTA text are present in the initial HTML
+- Use SSG for the assistant content so Q/A and CTA text are present in the initial HTML
   - Crawlers can index content
   - No layout shift for users
   - Faster TTFB
