@@ -4,11 +4,9 @@ import Image from "next/image"
 
 type Props = {
   messages: AssistantMessages
-  questions: React.ReactNode
-  cta: React.ReactNode
 }
 
-export function AssistantChatWindow({ messages, questions, cta }: Props) {
+export function AssistantChatWindow({ messages }: Props) {
     const chatWindow = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
@@ -49,10 +47,6 @@ export function AssistantChatWindow({ messages, questions, cta }: Props) {
           </p>
           </div>
         ))}
-        {/* Suggested Questions */}
-        {questions && questions}
-        {/* CTA */}
-        {cta && cta}
       </div>
     </div>
   )

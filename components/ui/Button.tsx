@@ -1,13 +1,15 @@
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: "primary" | "secondary"
   label: string
+  disabled: boolean
   onClick: () => void
 }
 
 export function Button({
   variant,
   label,
-  onClick,
+  disabled,
+  onClick
 }: ButtonProps): React.ReactNode {
   return (
     <button
@@ -18,6 +20,7 @@ export function Button({
         ? "bg-gray-200 text-(--drata-blue) border border-(--drata-blue) hover:bg-(--drata-blue) hover:text-white hover:border-white"
         : "bg-(--drata-blue) text-white border border-white hover:bg-white hover:text-(--drata-blue) hover:border-(--drata-blue)"
     }`}
+    disabled={disabled}
     onClick={onClick}
   >
     {label}

@@ -4,7 +4,10 @@ type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   placeholder: string
   disabled: boolean
   readonly: boolean
-  onClick: () => void
+  value?: string
+  inputRef: React.RefObject<HTMLInputElement>
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+  handleKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => void
 }
 
 export function Input({
@@ -13,7 +16,10 @@ export function Input({
   placeholder,
   disabled,
   readonly,
-  onClick,
+  value,
+  inputRef,
+  handleChange,
+  handleKeyDown,
 }: InputProps): React.ReactNode {
   return (
     <div className="flex flex-col gap-2 grow">
@@ -25,12 +31,19 @@ export function Input({
       </label>
     )}
     <input
+      ref={inputRef}
       id={id}
       type="text"
+      value={value}
       aria-disabled={disabled}
       readOnly={readonly}
       placeholder={placeholder}
-      onClick={onClick}
+      onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') {
+          handleKeyDown(event)
+        }
+      }}
+      onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleChange(event)}
       className={`flex-1 rounded-md border px-3 py-2 text-sm ${disabled ? "bg-gray-100 border-gray-400" : "bg-white border-gray-700"}`}
     />
     </div>
